@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://panel.es/solicitud-cientouno/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="solicitud-cientouno"
+	targetNamespace="http://panel.es/solicitud-cientouno/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://panel.es/solicitud-cientouno/">
+			<xsd:element name="Cientouno">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:element name="Documento" type="xsd:string"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="Nombre" type="xsd:string"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="PrimerApellido"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="SegundoApellido"
+							type="xsd:string" maxOccurs="1" minOccurs="0">
+						</xsd:element>
+						<xsd:element name="AutorizaConsultaPadron"
+							type="xsd:boolean" maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element
+							name="AutorizaConsultaAgenciaTributaria" type="xsd:boolean"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="TimeStamp" type="xsd:string">
+					</xsd:attribute>
+					<xsd:attribute name="EchoToken"
+						type="xsd:string">
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CientounoResponse">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:sequence>
+							<xsd:element name="Success"
+								type="tns:SuccessType">
+							</xsd:element>
+							<xsd:element name="Warnings"
+								type="tns:WarningsType" maxOccurs="1" minOccurs="0">
+							</xsd:element>
+							<xsd:element name="Resguardo"
+								type="tns:ResguardoType" maxOccurs="1" minOccurs="0">
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:element name="Errors" type="tns:ErrorsType"></xsd:element>
+					</xsd:choice>
+					<xsd:attribute name="EchoToken" type="xsd:string"></xsd:attribute>
+					<xsd:attribute name="TimeStamp" type="xsd:dateTime"></xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="SuccessType"></xsd:complexType>
+			<xsd:complexType name="WarningType">
+				<xsd:sequence>
+					<xsd:element name="Code" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+					<xsd:element name="Text" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ErrorType">
+				<xsd:sequence>
+					<xsd:element name="Code" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+					<xsd:element name="Text" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="WarningsType">
+				<xsd:sequence>
+					<xsd:element name="Warning" type="tns:WarningType"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ErrorsType">
+				<xsd:sequence>
+					<xsd:element name="Error" type="tns:ErrorType"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ResguardoType">
+				<xsd:sequence>
+					<xsd:element name="NumeroRegistro" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+					</xsd:element>
+					<xsd:element name="Resultado" maxOccurs="1"
+						minOccurs="1">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="CONCEDIDO"></xsd:enumeration>
+								<xsd:enumeration value="DENEGADO"></xsd:enumeration>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="InformacionAdicional" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CientounoRequest">
+		<wsdl:part element="tns:Cientouno" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="CientounoResponse">
+		<wsdl:part element="tns:CientounoResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="solicitud-cientouno">
+		<wsdl:operation name="Cientouno">
+			<wsdl:input message="tns:CientounoRequest" />
+			<wsdl:output message="tns:CientounoResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="solicitud-cientounoSOAP" type="tns:solicitud-cientouno">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="Cientouno">
+			<soap:operation soapAction="http://panel.es/solicitud-cientouno/Cientouno" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="solicitud-cientouno">
+		<wsdl:port binding="tns:solicitud-cientounoSOAP" name="solicitud-cientounoSOAP">
+			<soap:address location="http://panel.es/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

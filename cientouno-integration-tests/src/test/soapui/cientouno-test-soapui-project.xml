@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="cientouno-test" resourceRoot="${projectDir}" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="solicitud-cientounoSOAP" type="wsdl" bindingName="{http://panel.es/solicitud-cientouno/}solicitud-cientounoSOAP" soapVersion="1_1" anonymous="optional" definition="../../../../cientouno-ws-solicitud/src/main/resources/solicitud-cientouno.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\PROYECTOS\101\workspace\cientouno\cientouno-ws-solicitud\src\main\resources\solicitud-cientouno.wsdl"><con:part><con:url>file:\D:\PROYECTOS\101\workspace\cientouno\cientouno-ws-solicitud\src\main\resources\solicitud-cientouno.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="solicitud-cientouno" targetNamespace="http://panel.es/solicitud-cientouno/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://panel.es/solicitud-cientouno/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://panel.es/solicitud-cientouno/">
+      <xsd:element name="Cientouno">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Documento" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="Nombre" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="PrimerApellido" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="SegundoApellido" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+            <xsd:element name="AutorizaConsultaPadron" type="xsd:boolean" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="AutorizaConsultaAgenciaTributaria" type="xsd:boolean" maxOccurs="1" minOccurs="1"></xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="TimeStamp" type="xsd:string"></xsd:attribute>
+          <xsd:attribute name="EchoToken" type="xsd:string"></xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CientounoResponse">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:sequence>
+              <xsd:element name="Success" type="tns:SuccessType"></xsd:element>
+              <xsd:element name="Warnings" type="tns:WarningsType" maxOccurs="1" minOccurs="0"></xsd:element>
+              <xsd:element name="Resguardo" type="tns:ResguardoType" maxOccurs="1" minOccurs="0"></xsd:element>
+            </xsd:sequence>
+            <xsd:element name="Errors" type="tns:ErrorsType"/>
+          </xsd:choice>
+          <xsd:attribute name="EchoToken" type="xsd:string"/>
+          <xsd:attribute name="TimeStamp" type="xsd:dateTime"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SuccessType"/>
+      <xsd:complexType name="WarningType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WarningsType">
+        <xsd:sequence>
+          <xsd:element name="Warning" type="tns:WarningType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorsType">
+        <xsd:sequence>
+          <xsd:element name="Error" type="tns:ErrorType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResguardoType">
+        <xsd:sequence>
+          <xsd:element name="NumeroRegistro" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="Resultado" maxOccurs="1" minOccurs="1">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="CONCEDIDO"/>
+                <xsd:enumeration value="DENEGADO"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="InformacionAdicional" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CientounoRequest">
+    <wsdl:part element="tns:Cientouno" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="CientounoResponse">
+    <wsdl:part element="tns:CientounoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="solicitud-cientouno">
+    <wsdl:operation name="Cientouno">
+      <wsdl:input message="tns:CientounoRequest"/>
+      <wsdl:output message="tns:CientounoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="solicitud-cientounoSOAP" type="tns:solicitud-cientouno">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Cientouno">
+      <soap:operation soapAction="http://panel.es/solicitud-cientouno/Cientouno"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="solicitud-cientouno">
+    <wsdl:port binding="tns:solicitud-cientounoSOAP" name="solicitud-cientounoSOAP">
+      <soap:address location="http://panel.es/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://panel.es/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://panel.es/solicitud-cientouno/Cientouno" name="Cientouno" bindingOperationName="Cientouno" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://panel.es/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="?" EchoToken="?">
+         <Documento>?</Documento>
+         <Nombre>?</Nombre>
+         <PrimerApellido>?</PrimerApellido>
+         <!--Optional:-->
+         <SegundoApellido>?</SegundoApellido>
+         <AutorizaConsultaPadron>?</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>?</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://panel.es/solicitud-cientouno/Cientouno"/></con:call></con:operation></con:interface><con:testSuite name="BR_001_001_001"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_001_001 Ayuda concedida residente Madrid ingresos 35000" searchProperties="true" id="e46a8cba-0aa1-4665-b61e-40af48be259e"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:07.624+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>51599034-9119-7864-873987036272</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111100F</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>CONCEDIDO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - NumeroRegistro"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_001_002 Ayuda concedida residente Madrid ingresos 39999" searchProperties="true" id="9c8309c7-cfc1-4248-a132-29bbaf684bef"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.377+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>24458169-7112-1576-688754790377</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111111H</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>CONCEDIDO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - NumeroRegistro"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_001_003 Ayuda concedida residente Madrid ingresos 39999 en varios epígrafes" searchProperties="true" id="a13ade34-1264-49e9-828e-d2de7d10adec"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.435+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>89585527-7304-6639-127814046676</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111122Y</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>CONCEDIDO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="BR_001_001_002"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_002_001 Ayuda denegada residente Pozuelo ingresos 35000" searchProperties="true" id="3f7e9fc9-a595-4402-9c64-1f2bd20dc944"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.499+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>14585443-2739-2666-506197288486</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111133V</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - NumeroRegistro"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_002_002 Ayuda denegada residente Alcalá de Henares ingresos 39999" searchProperties="true" id="ad770dfb-69f1-4d2d-9e71-ddbc31836815"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.545+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>80047407-2041-8013-837942236744</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111144M</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - NumeroRegistro"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_002_003 Ayuda denegada residente Getafe ingresos 39999 en varios epígrafes" searchProperties="true" id="78a4acd2-8418-44ca-a598-351034822ff1"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.593+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>18882612-0441-6151-560977462728</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111155Q</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_002_004 Ayuda denegada residente Pozuelo ingresos 50000" searchProperties="true" id="e5dbc85e-3582-43e3-8686-f6cedf451704"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.634+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>05052344-8541-7169-743120814673</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111166G</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="BR_001_001_003"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_003_001 Ayuda denegada residente Madrid ingresos 40000" searchProperties="true" id="50d8bd90-8226-4488-b028-2e4e5382d6b8"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.677+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>27829480-5686-8575-457314238594</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111177S</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - NumeroRegistro"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_003_002 Ayuda denegada residente Madrid ingresos 45000" searchProperties="true" id="9a0b9518-71ef-4636-9e66-3ac2298d313f"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.738+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>57844708-0590-9096-909747743248</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111188A</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - NumeroRegistro"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_003_003 Ayuda denegada residente Madrid ingresos 40000 en varios epígrafes" searchProperties="true" id="303a4014-14d8-45ce-ac31-8f86979d2bd3"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.791+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>25202706-7513-9191-905518735886</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111199Z</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+//Resguardo/Resultado</path><content>DENEGADO</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Resguardo/NumeroRegistro)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="BR_001_001_004"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_004_001 Solicitud no procesada residente Madrid ingresos 35000 no autoriza Agencia Tributaria" searchProperties="true" id="a718b657-1522-46bf-bd0b-afdf2e221b35"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.878+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>32369201-0484-2069-546394616945</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111100F</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>false</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Warnings/Warning)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_004_002 Solicitud no procesada residente Madrid ingresos 35000 no autoriza Padrón" searchProperties="true" id="09bd4fe2-11b4-4c90-af0a-1097a27be9f0"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.905+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>71053110-3323-9657-036376686678</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111100F</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>false</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match - Resultado"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Warnings/Warning)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="IT_001_001_004_003 Solicitud no procesada residente Madrid ingresos 35000 no autoriza Agencia Tributaria ni Padrón" searchProperties="true" id="2a144719-4b3e-4800-9025-e9601321ce64"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-28T00:53:08.925+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>93421039-4356-6821-295713373405</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}
+
+// echotoken
+def generator = { String alphabet, int n ->
+  new Random().with {
+    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+  }
+}
+
+// 55484934-15e2-4abe-85ba-49f57b0cbede
+def echotoken = generator( (('0'..'9')).join(),  8) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  4) + "-" + generator( (('0'..'9')).join(),  12)
+properties.setPropertyValue("EchoToken", echotoken)</script></con:config></con:testStep><con:testStep type="request" name="CientounoRequest"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="CientounoRequest"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111100F</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>false</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>false</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="XPath Match" name="XPath Match - Success"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Success)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2='http://panel.es/solicitud-cientouno/';
+count(//Warnings/Warning)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

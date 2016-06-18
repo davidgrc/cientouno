@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="cientouno-mockservice" resourceRoot="${projectDir}" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="PadronServiceSOAP" type="wsdl" bindingName="{http://www.example.org/PadronService/}PadronServiceSOAP" soapVersion="1_1" anonymous="optional" definition="../../../../cientouno-wsclient-padron/src/main/resources/PadronService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/PROYECTOS/101/workspace/cientouno/cientouno-wsclient-padron/src/main/resources/PadronService.wsdl"><con:part><con:url>file:/D:/PROYECTOS/101/workspace/cientouno/cientouno-wsclient-padron/src/main/resources/PadronService.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="PadronService" targetNamespace="http://www.example.org/PadronService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/PadronService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/PadronService/">
+      <xsd:element name="ConsultaPadron">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Documento" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="Nombre" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="PrimerApellido" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="SegundoApellido" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="EchoToken" type="xsd:string"/>
+          <xsd:attribute name="TimeStamp" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultaPadronResponse">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:sequence>
+              <xsd:element name="Success" type="tns:SuccessType"></xsd:element>
+              <xsd:element name="Warnings" type="tns:WarningsType" maxOccurs="1" minOccurs="0"></xsd:element>
+              <xsd:element name="Domicilio" type="tns:DomicilioType" maxOccurs="1" minOccurs="0"></xsd:element>
+            </xsd:sequence>
+            <xsd:element name="Errors" type="tns:ErrorsType"/>
+          </xsd:choice>
+          <xsd:attribute name="EchoToken" type="xsd:string"/>
+          <xsd:attribute name="TimeStamp" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SuccessType"/>
+      <xsd:complexType name="WarningType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WarningsType">
+        <xsd:sequence>
+          <xsd:element name="Warning" type="tns:WarningType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorsType">
+        <xsd:sequence>
+          <xsd:element name="Error" type="tns:ErrorType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DomicilioType">
+        <xsd:sequence>
+          <xsd:element name="TipoVia" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="Via" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="Numero" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+          <xsd:element name="Escalera" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+          <xsd:element name="Piso" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+          <xsd:element name="Puerta" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+          <xsd:element name="CodigoPostal" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="Municipio" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="Provincia" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaPadronRequest">
+    <wsdl:part element="tns:ConsultaPadron" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ConsultaPadronResponse">
+    <wsdl:part element="tns:ConsultaPadronResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="PadronService">
+    <wsdl:operation name="ConsultaPadron">
+      <wsdl:input message="tns:ConsultaPadronRequest"/>
+      <wsdl:output message="tns:ConsultaPadronResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PadronServiceSOAP" type="tns:PadronService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ConsultaPadron">
+      <soap:operation soapAction="http://www.example.org/PadronService/ConsultaPadron"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PadronService">
+    <wsdl:port binding="tns:PadronServiceSOAP" name="PadronServiceSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://pt-dgarcia:8088/mockPadronServiceSOAP</con:endpoint><con:endpoint>http://www.example.org/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/PadronService/ConsultaPadron" name="ConsultaPadron" bindingOperationName="ConsultaPadron" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/mockPadronServiceSOAP</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadron EchoToken="" TimeStamp="">
+         <Documento>11111111H</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+      </pad:ConsultaPadron>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AgenciaTributariaServiceSOAP" type="wsdl" bindingName="{http://www.example.org/AgenciaTributariaService/}AgenciaTributariaServiceSOAP" soapVersion="1_1" anonymous="optional" definition="../../../../cientouno-wsclient-agenciatributaria/src/main/resources/AgenciaTributariaService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/PROYECTOS/101/workspace/cientouno/cientouno-wsclient-agenciatributaria/src/main/resources/AgenciaTributariaService.wsdl"><con:part><con:url>file:/D:/PROYECTOS/101/workspace/cientouno/cientouno-wsclient-agenciatributaria/src/main/resources/AgenciaTributariaService.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="AgenciaTributariaService" targetNamespace="http://www.example.org/AgenciaTributariaService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/AgenciaTributariaService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/AgenciaTributariaService/">
+      <xsd:element name="ConsultaIrpf">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Documento" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="Nombre" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="PrimerApellido" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="SegundoApellido" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+            <xsd:element name="Ejercicio" type="xsd:integer" maxOccurs="1" minOccurs="1"></xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="EchoToken" type="xsd:string"/>
+          <xsd:attribute name="TimeStamp" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultaIrpfResponse">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:sequence>
+              <xsd:element name="Success" type="tns:SuccessType"></xsd:element>
+              <xsd:element name="Warnings" type="tns:WarningsType" maxOccurs="1" minOccurs="0"></xsd:element>
+              <xsd:element name="Irpf" type="tns:IrpfType" maxOccurs="1" minOccurs="0"></xsd:element>
+            </xsd:sequence>
+            <xsd:element name="Errors" type="tns:ErrorsType"/>
+          </xsd:choice>
+          <xsd:attribute name="EchoToken" type="xsd:string"/>
+          <xsd:attribute name="TimeStamp" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SuccessType"/>
+      <xsd:complexType name="WarningType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WarningsType">
+        <xsd:sequence>
+          <xsd:element name="Warning" type="tns:WarningType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorsType">
+        <xsd:sequence>
+          <xsd:element name="Error" type="tns:ErrorType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="IrpfType">
+        <xsd:sequence>
+          <xsd:element name="Documento" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Ejercicio" type="xsd:integer" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="RendimientoTrabajo" type="xsd:double" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="RendimientoCapitalMobiliario" type="xsd:double" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="RendimientoCapitalInmobiliario" type="xsd:double" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="ResultadoDeclaracion" type="xsd:double" maxOccurs="1" minOccurs="1"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaIrpfRequest">
+    <wsdl:part element="tns:ConsultaIrpf" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ConsultaIrpfResponse">
+    <wsdl:part element="tns:ConsultaIrpfResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="AgenciaTributariaService">
+    <wsdl:operation name="ConsultaIrpf">
+      <wsdl:input message="tns:ConsultaIrpfRequest"/>
+      <wsdl:output message="tns:ConsultaIrpfResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AgenciaTributariaServiceSOAP" type="tns:AgenciaTributariaService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ConsultaIrpf">
+      <soap:operation soapAction="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AgenciaTributariaService">
+    <wsdl:port binding="tns:AgenciaTributariaServiceSOAP" name="AgenciaTributariaServiceSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://pt-dgarcia:8089/mockAgenciaTributariaServiceSOAP</con:endpoint><con:endpoint>http://www.example.org/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf" name="ConsultaIrpf" bindingOperationName="ConsultaIrpf" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8089/mockAgenciaTributariaServiceSOAP</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpf EchoToken="" TimeStamp="">
+         <Documento>11111111H</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <Ejercicio>2014</Ejercicio>
+      </agen:ConsultaIrpf>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService port="8088" path="/mockPadronServiceSOAP" host="pt-dgarcia" name="PadronServiceSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ConsultaPadron" interface="PadronServiceSOAP" operation="ConsultaPadron"><con:settings/><con:defaultResponse>11111100F</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import com.eviware.soapui.support.XmlHolder
+import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+
+// create XmlHolder for request content
+def holder = new com.eviware.soapui.support.XmlHolder( mockRequest.requestContent )
+
+// add namespaces
+holder.namespaces['soapenv']='http://schemas.xmlsoap.org/soap/envelope/';
+//holder.namespaces['wsse']='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+holder.namespaces['ns2']='http://www.example.org/PadronService/';
+
+// get arguments - documento
+def documento = holder["//ns2:ConsultaPadron/Documento"]
+log.info "Documento: " + documento
+requestContext.Documento = documento
+
+def echotoken = holder["//ns2:ConsultaPadron/@EchoToken"]
+log.info "EchoToken: " + echotoken
+requestContext.EchoToken = echotoken
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	requestContext.TimeStamp = sdf.format(today)
+}
+
+switch(documento){
+	case "11111100F"	: return "11111100F"
+	case "11111111H"	: return "11111111H"
+	case "11111122Y"	: return "11111122Y"
+	case "11111133V"	: return "11111133V"
+	case "11111144M"	: return "11111144M"
+	case "11111155Q"	: return "11111155Q"
+	case "11111166G"	: return "11111166G"
+	case "11111177S"	: return "11111177S"
+	case "11111188A"	: return "11111188A"
+	case "11111199Z"	: return "11111199Z"
+	default		: return "error"
+}
+
+</con:dispatchPath><con:response name="11111100F" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>MADRID</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="error" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="?" TimeStamp="?">
+         <Errors>
+            <Error>
+               <Code>403</Code>
+               <Text>Informacion no disponible para el documento ${Documento}</Text>
+            </Error>
+         </Errors>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111111H" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>MADRID</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111122Y" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>MADRID</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111133V" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>POZUELO DE ALARCON</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111144M" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>ALCALA DE HENARES</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111155Q" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>GETAFE</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111166G" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>POZUELO DE ALARCON</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111177S" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>MADRID</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111188A" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>MADRID</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:response name="11111199Z" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pad="http://www.example.org/PadronService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pad:ConsultaPadronResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Domicilio>
+            <TipoVia>CALLE</TipoVia>
+            <Via>Mayor</Via>
+            <Numero>2</Numero>
+            <CodigoPostal>28001</CodigoPostal>
+            <Municipio>MADRID</Municipio>
+            <Provincia>MADRID</Provincia>
+         </Domicilio>
+      </pad:ConsultaPadronResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/PadronService/ConsultaPadron"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:mockService port="8089" path="/mockAgenciaTributariaServiceSOAP" host="pt-dgarcia" name="AgenciaTributariaServiceSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ConsultaIrpf" interface="AgenciaTributariaServiceSOAP" operation="ConsultaIrpf"><con:settings/><con:defaultResponse>error</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>import com.eviware.soapui.support.XmlHolder
+import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+
+// create XmlHolder for request content
+def holder = new com.eviware.soapui.support.XmlHolder( mockRequest.requestContent )
+
+// add namespaces
+holder.namespaces['soapenv']='http://schemas.xmlsoap.org/soap/envelope/';
+//holder.namespaces['wsse']='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+holder.namespaces['ns2']='http://www.example.org/AgenciaTributariaService/';
+
+// get arguments - documento
+def documento = holder["//ns2:ConsultaIrpf/Documento"]
+log.info "Documento: " + documento
+requestContext.Documento = documento
+
+def echotoken = holder["//ns2:ConsultaIrpf/@EchoToken"]
+log.info "EchoToken: " + echotoken
+requestContext.EchoToken = echotoken
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	requestContext.TimeStamp = sdf.format(today)
+}
+
+switch(documento){
+	case "11111100F"	: return "11111100F"
+	case "11111111H"	: return "11111111H"
+	case "11111122Y"	: return "11111122Y"
+	case "11111133V"	: return "11111133V"
+	case "11111144M"	: return "11111144M"
+	case "11111155Q"	: return "11111155Q"
+	case "11111166G"	: return "11111166G"
+	case "11111177S"	: return "11111177S"
+	case "11111188A"	: return "11111188A"
+	case "11111199Z"	: return "11111199Z"
+	default		: return "error"
+}
+
+</con:dispatchPath><con:response name="11111100F" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>35000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111111H" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>39999</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="error" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Errors>
+            <Error>
+               <Code>403</Code>
+               <Text>Informacion no disponible para el numero de documento ${Documento}</Text>
+            </Error>
+         </Errors>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111122Y" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>35000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111133V" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>35000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111144M" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>39999</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111155Q" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>37999</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>1500</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>500</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111166G" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>50000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111177S" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>40000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111188A" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>45000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>0</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>0</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:response name="11111199Z" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:agen="http://www.example.org/AgenciaTributariaService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <agen:ConsultaIrpfResponse EchoToken="${EchoToken}" TimeStamp="${TimeStamp}">
+         <Success/>
+         <Irpf>
+            <Documento>${Documento}</Documento>
+            <Ejercicio>2014</Ejercicio>
+            <RendimientoTrabajo>38000</RendimientoTrabajo>
+            <RendimientoCapitalMobiliario>1500</RendimientoCapitalMobiliario>
+            <RendimientoCapitalInmobiliario>500</RendimientoCapitalInmobiliario>
+            <ResultadoDeclaracion>100</ResultadoDeclaracion>
+         </Irpf>
+      </agen:ConsultaIrpfResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/AgenciaTributariaService/ConsultaIrpf"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

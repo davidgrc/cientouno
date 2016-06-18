@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/PadronService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PadronService"
+	targetNamespace="http://www.example.org/PadronService/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.example.org/PadronService/">
+			<xsd:element name="ConsultaPadron">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Documento" type="xsd:string"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="Nombre" type="xsd:string"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="PrimerApellido" type="xsd:string"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="SegundoApellido" type="xsd:string"
+							maxOccurs="1" minOccurs="0">
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="EchoToken" type="xsd:string"></xsd:attribute>
+					<xsd:attribute name="TimeStamp" type="xsd:string"></xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ConsultaPadronResponse">
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:sequence>
+							<xsd:element name="Success" type="tns:SuccessType">
+							</xsd:element>
+							<xsd:element name="Warnings" type="tns:WarningsType"
+								maxOccurs="1" minOccurs="0">
+							</xsd:element>
+
+							<xsd:element name="Domicilio" type="tns:DomicilioType"
+								maxOccurs="1" minOccurs="0">
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:element name="Errors" type="tns:ErrorsType"></xsd:element>
+					</xsd:choice>
+					<xsd:attribute name="EchoToken" type="xsd:string"></xsd:attribute>
+					<xsd:attribute name="TimeStamp" type="xsd:string"></xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="SuccessType"></xsd:complexType>
+			<xsd:complexType name="WarningType">
+				<xsd:sequence>
+					<xsd:element name="Code" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+					<xsd:element name="Text" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ErrorType">
+				<xsd:sequence>
+					<xsd:element name="Code" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+					<xsd:element name="Text" type="xsd:string" maxOccurs="1"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="WarningsType">
+				<xsd:sequence>
+					<xsd:element name="Warning" type="tns:WarningType"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ErrorsType">
+				<xsd:sequence>
+					<xsd:element name="Error" type="tns:ErrorType"
+						minOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DomicilioType">
+				<xsd:sequence>
+					<xsd:element name="TipoVia" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+					</xsd:element>
+					<xsd:element name="Via" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+					</xsd:element>
+					<xsd:element name="Numero" type="xsd:string"
+						maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="Escalera" type="xsd:string"
+						maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="Piso" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+					<xsd:element name="Puerta" type="xsd:string"
+						maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="CodigoPostal" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+					</xsd:element>
+					<xsd:element name="Municipio" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+					</xsd:element>
+					<xsd:element name="Provincia" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ConsultaPadronRequest">
+		<wsdl:part element="tns:ConsultaPadron" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="ConsultaPadronResponse">
+		<wsdl:part element="tns:ConsultaPadronResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="PadronService">
+		<wsdl:operation name="ConsultaPadron">
+			<wsdl:input message="tns:ConsultaPadronRequest" />
+			<wsdl:output message="tns:ConsultaPadronResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="PadronServiceSOAP" type="tns:PadronService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="ConsultaPadron">
+			<soap:operation soapAction="http://www.example.org/PadronService/ConsultaPadron" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="PadronService">
+		<wsdl:port binding="tns:PadronServiceSOAP" name="PadronServiceSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

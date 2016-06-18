@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="cientouno-itws" resourceRoot="${projectDir}" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="solicitud-cientounoSOAP" type="wsdl" bindingName="{http://panel.es/solicitud-cientouno/}solicitud-cientounoSOAP" soapVersion="1_1" anonymous="optional" definition="../../main/resources/solicitud-cientouno.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/PROYECTOS/101/workspace/cientouno/cientouno-solicitud-ws/src/main/resources/solicitud-cientouno.wsdl"><con:part><con:url>file:/D:/PROYECTOS/101/workspace/cientouno/cientouno-solicitud-ws/src/main/resources/solicitud-cientouno.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="solicitud-cientouno" targetNamespace="http://panel.es/solicitud-cientouno/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://panel.es/solicitud-cientouno/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://panel.es/solicitud-cientouno/">
+      <xsd:element name="Cientouno">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Documento" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="Nombre" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="PrimerApellido" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="SegundoApellido" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+            <xsd:element name="AutorizaConsultaPadron" type="xsd:boolean" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="AutorizaConsultaAgenciaTributaria" type="xsd:boolean" maxOccurs="1" minOccurs="1"></xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="TimeStamp" type="xsd:string"></xsd:attribute>
+          <xsd:attribute name="EchoToken" type="xsd:string"></xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CientounoResponse">
+        <xsd:complexType>
+          <xsd:choice>
+            <xsd:sequence>
+              <xsd:element name="Success" type="tns:SuccessType"></xsd:element>
+              <xsd:element name="Warnings" type="tns:WarningsType" maxOccurs="1" minOccurs="0"></xsd:element>
+              <xsd:element name="Resguardo" type="tns:ResguardoType" maxOccurs="1" minOccurs="0"></xsd:element>
+            </xsd:sequence>
+            <xsd:element name="Errors" type="tns:ErrorsType"/>
+          </xsd:choice>
+          <xsd:attribute name="EchoToken" type="xsd:string"/>
+          <xsd:attribute name="TimeStamp" type="xsd:dateTime"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SuccessType"/>
+      <xsd:complexType name="WarningType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorType">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+          <xsd:element name="Text" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WarningsType">
+        <xsd:sequence>
+          <xsd:element name="Warning" type="tns:WarningType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorsType">
+        <xsd:sequence>
+          <xsd:element name="Error" type="tns:ErrorType" minOccurs="1"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResguardoType">
+        <xsd:sequence>
+          <xsd:element name="NumeroRegistro" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+          <xsd:element name="Resultado" maxOccurs="1" minOccurs="1">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="CONCEDIDO"/>
+                <xsd:enumeration value="DENEGADO"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="InformacionAdicional" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CientounoRequest">
+    <wsdl:part element="tns:Cientouno" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="CientounoResponse">
+    <wsdl:part element="tns:CientounoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="solicitud-cientouno">
+    <wsdl:operation name="Cientouno">
+      <wsdl:input message="tns:CientounoRequest"/>
+      <wsdl:output message="tns:CientounoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="solicitud-cientounoSOAP" type="tns:solicitud-cientouno">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Cientouno">
+      <soap:operation soapAction="http://panel.es/solicitud-cientouno/Cientouno"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="solicitud-cientouno">
+    <wsdl:port binding="tns:solicitud-cientounoSOAP" name="solicitud-cientounoSOAP">
+      <soap:address location="http://panel.es/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://panel.es/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://panel.es/solicitud-cientouno/Cientouno" name="Cientouno" bindingOperationName="Cientouno" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://panel.es/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno>
+         <Documento>?</Documento>
+         <Nombre>?</Nombre>
+         <PrimerApellido>?</PrimerApellido>
+         <!--Optional:-->
+         <SegundoApellido>?</SegundoApellido>
+         <AutorizaConsultaPadron>?</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>?</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://panel.es/solicitud-cientouno/Cientouno"/></con:call></con:operation></con:interface><con:testSuite name="solicitud-cientounoSOAP TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Cientouno TestCase" searchProperties="true" id="7bd11f56-ab15-4883-b8da-d6aa45fe3c3b"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>TimeStamp</con:name><con:value>2016-04-27T19:14:23.319+0200</con:value></con:property><con:property><con:name>EchoToken</con:name><con:value>55484934-15e2-4abe-85ba-49f57b0cbede</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script"><con:settings/><con:config><script>import groovy.time.TimeCategory
+import java.text.SimpleDateFormat
+
+// Get properties
+def properties = testRunner.testCase.getTestStepByName("Properties")
+
+// set timestamp
+def today = new Date();
+def sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+use(TimeCategory) {
+	properties.setPropertyValue("TimeStamp", sdf.format(today))
+}</script></con:config></con:testStep><con:testStep type="request" name="Cientouno"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>solicitud-cientounoSOAP</con:interface><con:operation>Cientouno</con:operation><con:request name="Cientouno"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/cientouno/services/solicitud-cientouno</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sol="http://panel.es/solicitud-cientouno/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sol:Cientouno TimeStamp="${Properties#TimeStamp}" EchoToken="${Properties#EchoToken}">
+         <Documento>11111111H</Documento>
+         <Nombre>David</Nombre>
+         <PrimerApellido>Garcia</PrimerApellido>
+         <SegundoApellido>Rincon</SegundoApellido>
+         <AutorizaConsultaPadron>true</AutorizaConsultaPadron>
+         <AutorizaConsultaAgenciaTributaria>true</AutorizaConsultaAgenciaTributaria>
+      </sol:Cientouno>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://panel.es/solicitud-cientouno/Cientouno" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
