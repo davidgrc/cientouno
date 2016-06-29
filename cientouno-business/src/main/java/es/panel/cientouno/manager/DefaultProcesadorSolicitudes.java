@@ -76,13 +76,13 @@ public class DefaultProcesadorSolicitudes implements ProcesadorSolicitudes {
 			
 			//TODO [001] Descomentar
 			//TODO [002] Eliminar bloque
-//			if(!padron.getDomicilio().getMunicipio().equals(MUNICIPIO)){
-//				resguardo.setResultado(Resultado.DENEGADO);
-//				resguardo.setInformacionAdicional("El solicitante no reside en el municipio de " + MUNICIPIO);
-//			}
-//			else{
+			if(!padron.getDomicilio().getMunicipio().equals(MUNICIPIO)){
+				resguardo.setResultado(Resultado.DENEGADO);
+				resguardo.setInformacionAdicional("El solicitante no reside en el municipio de " + MUNICIPIO);
+			}
+			else{
 				resguardo.setResultado(Resultado.CONCEDIDO);
-//			}
+			}
 			
 			
 		} 
