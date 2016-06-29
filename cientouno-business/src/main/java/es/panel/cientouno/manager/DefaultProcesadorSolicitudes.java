@@ -55,36 +55,24 @@ public class DefaultProcesadorSolicitudes implements ProcesadorSolicitudes {
 			ConsultaPadronResponse padron = this.consultaPadron(solicitud);
 			
 			//TODO [002] Descomentar
-//			if(!padron.getDomicilio().getMunicipio().equals(MUNICIPIO)){
-//				resguardo.setResultado(Resultado.DENEGADO);
-//				resguardo.setInformacionAdicional("El solicitante no reside en el municipio de " + MUNICIPIO);
-//			}
-//			else{
-//				ConsultaIrpfResponse irpf = this.consultaAgenciaTributaria(solicitud);
-//				double rendimientoTrabajo = Double.valueOf(irpf.getIrpf().getRendimientoTrabajo());
-//				double rendimientoMobiliario = Double.valueOf(irpf.getIrpf().getRendimientoCapitalMobiliario());
-//				double rendimientoInmobiliario = Double.valueOf(irpf.getIrpf().getRendimientoCapitalInmobiliario());
-//				
-//				if((rendimientoTrabajo + rendimientoMobiliario + rendimientoInmobiliario)>LIMITE_INGRESOS){
-//					resguardo.setResultado(Resultado.DENEGADO);
-//					resguardo.setInformacionAdicional("El solicitante tiene unos ingresos declardos superiores a " + LIMITE_INGRESOS + " euros.");
-//				}
-//				else {
-//					resguardo.setResultado(Resultado.CONCEDIDO);
-//				}
-//			}
-			
-			//TODO [001] Descomentar
-			//TODO [002] Eliminar bloque
 			if(!padron.getDomicilio().getMunicipio().equals(MUNICIPIO)){
 				resguardo.setResultado(Resultado.DENEGADO);
 				resguardo.setInformacionAdicional("El solicitante no reside en el municipio de " + MUNICIPIO);
 			}
 			else{
-				resguardo.setResultado(Resultado.CONCEDIDO);
+				ConsultaIrpfResponse irpf = this.consultaAgenciaTributaria(solicitud);
+				double rendimientoTrabajo = Double.valueOf(irpf.getIrpf().getRendimientoTrabajo());
+				double rendimientoMobiliario = Double.valueOf(irpf.getIrpf().getRendimientoCapitalMobiliario());
+				double rendimientoInmobiliario = Double.valueOf(irpf.getIrpf().getRendimientoCapitalInmobiliario());
+				
+				if((rendimientoTrabajo + rendimientoMobiliario + rendimientoInmobiliario)>LIMITE_INGRESOS){
+					resguardo.setResultado(Resultado.DENEGADO);
+					resguardo.setInformacionAdicional("El solicitante tiene unos ingresos declardos superiores a " + LIMITE_INGRESOS + " euros.");
+				}
+				else {
+					resguardo.setResultado(Resultado.CONCEDIDO);
+				}
 			}
-			
-			
 		} 
 		catch (DatatypeConfigurationException e) {
 			throw new InternalErrorException("Error al procesar la soliciud", e, new Integer(500));
