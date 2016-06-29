@@ -81,24 +81,23 @@ public class SolicitudCientounoSOAPImpl implements SolicitudCientouno {
             
             return response;
         }
-        //TODO [004] Descomentar
-//        catch (ConsultaAgenciaTributariaNoAutorizadaException | ConsultaPadronNoAutorizadaException e){
-//        	LOG.info(e.getMessage(), e);
-//        	
-//        	CientounoResponse response = new CientounoResponse();
-//        	response.setTimeStamp(currentDate());
-//        	SuccessType success = new SuccessType();
-//        	WarningsType warnings = new WarningsType();
-//        	WarningType warning = new WarningType();
-//        	warning.setCode("1001");
-//        	warning.setText("El solicitante no ha autorizado la consulta de datos personales a los servicios de las Administraciones Públicas");
-//        	warnings.setWarning(warning);
-//        	
-//        	response.setSuccess(success);
-//        	response.setWarnings(warnings);
-//        	response.setEchoToken(parameters.getEchoToken());
-//        	return response;
-//        }
+        catch (ConsultaAgenciaTributariaNoAutorizadaException | ConsultaPadronNoAutorizadaException e){
+        	LOG.info(e.getMessage(), e);
+        	
+        	CientounoResponse response = new CientounoResponse();
+        	response.setTimeStamp(currentDate());
+        	SuccessType success = new SuccessType();
+        	WarningsType warnings = new WarningsType();
+        	WarningType warning = new WarningType();
+        	warning.setCode("1001");
+        	warning.setText("El solicitante no ha autorizado la consulta de datos personales a los servicios de las Administraciones Públicas");
+        	warnings.setWarning(warning);
+        	
+        	response.setSuccess(success);
+        	response.setWarnings(warnings);
+        	response.setEchoToken(parameters.getEchoToken());
+        	return response;
+        }
         catch (Exception e) {
         	LOG.error(e.getMessage(), e);
         	

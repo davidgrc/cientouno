@@ -41,7 +41,6 @@ public class DefaultProcesadorSolicitudes implements ProcesadorSolicitudes {
 		ResguardoTipoCientouno resguardo = null;
 		
 		try {
-			//TODO [003] Descomentar
 			if(!solicitud.isAutorizaConsultaAgenciaTributaria()){
 				throw new ConsultaAgenciaTributariaNoAutorizadaException( "No es posible realizar la solicitud, el usuario no autoriza la consulta a la Agencia Tributaria", new Integer(1000));
 			}
