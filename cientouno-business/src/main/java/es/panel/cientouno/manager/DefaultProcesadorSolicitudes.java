@@ -42,19 +42,18 @@ public class DefaultProcesadorSolicitudes implements ProcesadorSolicitudes {
 		
 		try {
 			//TODO [003] Descomentar
-//			if(!solicitud.isAutorizaConsultaAgenciaTributaria()){
-//				throw new ConsultaAgenciaTributariaNoAutorizadaException( "No es posible realizar la solicitud, el usuario no autoriza la consulta a la Agencia Tributaria", new Integer(1000));
-//			}
-//			if(!solicitud.isAutorizaConsultaPadron()){
-//				throw new ConsultaPadronNoAutorizadaException( "No es posible realizar la solicitud, el usuario no autoriza la consulta al Padrón", new Integer(1000));
-//			}
+			if(!solicitud.isAutorizaConsultaAgenciaTributaria()){
+				throw new ConsultaAgenciaTributariaNoAutorizadaException( "No es posible realizar la solicitud, el usuario no autoriza la consulta a la Agencia Tributaria", new Integer(1000));
+			}
+			if(!solicitud.isAutorizaConsultaPadron()){
+				throw new ConsultaPadronNoAutorizadaException( "No es posible realizar la solicitud, el usuario no autoriza la consulta al Padrón", new Integer(1000));
+			}
 			
 			resguardo = new ResguardoTipoCientouno();
 			resguardo.setNumeroRegistro(UUID.randomUUID().toString());
 			
 			ConsultaPadronResponse padron = this.consultaPadron(solicitud);
 			
-			//TODO [002] Descomentar
 			if(!padron.getDomicilio().getMunicipio().equals(MUNICIPIO)){
 				resguardo.setResultado(Resultado.DENEGADO);
 				resguardo.setInformacionAdicional("El solicitante no reside en el municipio de " + MUNICIPIO);
